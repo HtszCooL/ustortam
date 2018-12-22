@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<style>
+.kirmizi {
+  color: red;
+  
+}
+
+</style>
+ 
+<body>
+
+	<h style="width:33%"> Aşağıdaki hiçbir input boş olmamalı:</h>
+	<h id="main"  colspan="2"  class="kirmizi" ></h>
+<form name="myForm"   action=basari.html onsubmit="return validateForm()" method="GET">
+  
+ 
+ 
+
+  <table>
+
+  
+  <tr>
+    <td style="width:28%" >Boş olmamalı: </td>
+    <td style="width:5%"><input type="text" id="name"></td>
+	<td id="nameTD"  class="kirmizi" > </td>
+    
+  </tr>
+  <tr>
+    <td>E-mail (Kurallara uygun email): </td>
+    <td><input type="text" id="email"></td>
+	<td id="emailTD" class="kirmizi"></td>
+    
+  </tr>
+  <tr>
+    <td>Sadece sayısal: </td>
+    <td><input type="text" id="sayisal"></td>
+	<td id="sayisalTD" class="kirmizi" ></td>
+	
+  </tr>
+  <tr>
+    <td>Sadece sayısal olan ve 12 basamak uzunluğundaki sayi: </td>
+    <td><input type="text" id="basamakli"></td>
+	<td id="basamakliTD" class="kirmizi"></td>
+	
+  </tr>
+  <tr>
+    <td>Sadece harf (a..z veya A..Z): </td>
+    <td><input type="text" id="alfa"></td>
+	<td id="alfaTD" class="kirmizi"></td>
+	
+  </tr>
+  <tr>
+    <td>Sadece harf ve en fazla 30 uzunlukta olan string: </td>
+    <td><input type="text" id="max30"></td>
+	<td id="max30TD" class="kirmizi"></td>
+	
+  </tr>
+  <tr>
+    <td>3 kelimeden oluşan string: </td>
+    <td><input type="text" id="uckelime"></td>
+	<td id="uckelimeTD" class="kirmizi"></td>
+	
+  </tr>
+  <tr>
+    <td>En az 1 büyük harf, en az 1 küçük harf, en az bir rakam ve en az 1 noktalama işareti içeren ve en az 8 uzunluğunda olan metin: </td>
+    <td><input type="text" id="password"></td>
+	<td id="passwordTD" class="kirmizi"></td>
+	
+  </tr>
+  
+
+</table>
+
+<br>
+  <input type="submit" value="Submit">
+</form>
+
+<script>
+
+function validateForm() { 
+	document.getElementById("nameTD").innerHTML = "";
+	document.getElementById("emailTD").innerHTML = "";
+	document.getElementById("sayisalTD").innerHTML = "";
+	document.getElementById("basamakliTD").innerHTML = "";
+	document.getElementById("alfaTD").innerHTML = "";
+	document.getElementById("max30TD").innerHTML = "";
+	document.getElementById("uckelimeTD").innerHTML = "";
+	document.getElementById("passwordTD").innerHTML = "";
+	
+    var name = document.getElementById("name").value;
+	var email = document.getElementById("email").value;
+	var sayisal = document.getElementById("sayisal").value;
+	var basamakli = document.getElementById("basamakli").value;
+	var alfa = document.getElementById("alfa").value;
+	var max30 = document.getElementById("max30").value;
+	var uckelime = document.getElementById("uckelime").value;
+	var password = document.getElementById("password").value;
+    if (name == "" || email == "" || sayisal == "" ||  basamakli == "" ||  alfa == "" ||  max30 == "" ||  uckelime == "" ||  password  == "") {
+ 
+		document.getElementById("main").innerHTML = "(Herhangi bir alan boş olmamalı.)";
+	
+    }
+	else{
+		document.getElementById("main").innerHTML = "";
+		
+		
+		 
+	}
+	
+	if(name == ""){
+		document.getElementById("nameTD").innerHTML = "(Bu Alan boş olmamamalı.)";
+		return false;
+	}
+	
+	if( email.indexOf("@")== 0 ||email.indexOf("@")+1>=email.lastIndexOf(".") || email.lastIndexOf(".")+1>=email.length){
+		
+		document.getElementById("emailTD").innerHTML = "(asdasd@qweqwe.fgh şeklinde bir mail adresi giriniz.)";
+		return false;
+	}
+	
+	
+	if(isNaN(sayisal) || sayisal == "" ){
+		document.getElementById("sayisalTD").innerHTML = "(Bu alan sadece sayısal verilerden oluşmalı.)";
+		return false;
+	}		
+	
+	if(isNaN(basamakli) || basamakli.length != 12 ){
+		document.getElementById("basamakliTD").innerHTML = "(Bu alan sadece sayısal verilerden oluşmalı ve 12 basamakli olmalı.)";
+		return false;
+	}
+	
+	if(!isNaN(alfa)){
+		document.getElementById("alfaTD").innerHTML = "(Bu alan sadece harflerden oluşmalı.)";
+		return false;
+	}
+	
+	if(!isNaN(max30) || max30.length > 30){
+		document.getElementById("max30TD").innerHTML = "(Bu alan sadece 30 haneden küçük ve sadece harflerden oluşmalı.)";
+		return false;
+	}
+	uckelime = uckelime.trim();
+	if(uckelime.includes("  ")){
+		document.getElementById("uckelimeTD").innerHTML = "(Kelimeler arasına tek boşluk bırakınız.)"
+		return false;
+	}
+	if (uckelime.split(" ").length != 3){
+		document.getElementById("uckelimeTD").innerHTML = "(Sadece 3 kelime giriniz.)";
+		return false;
+	}
+	var i=0;
+	var big = 0;
+	var little = 0;
+	var num = 0;
+	var noktalamaisareti = 0;
+	for (i;i<password.length;i++){
+	
+		if(password.charAt(i)=="."||password.charAt(i)==","||password.charAt(i)==":"||password.charAt(i)==";"||
+		password.charAt(i)=="?"||password.charAt(i)=="!"||password.charAt(i)=="-"||password.charAt(i)=="—"||
+		password.charAt(i)=="/"||password.charAt(i)=="\\"||password.charAt(i)=="\""||password.charAt(i)=="("||
+		password.charAt(i)==")"||password.charAt(i)=="["||password.charAt(i)=="]"||password.charAt(i)=="{"||
+		password.charAt(i)=="}"||password.charAt(i)=="\'"){
+			noktalamaisareti++;
+		}
+		else if(!isNaN(password.charAt(i))){
+			
+			num++;
+		}
+		
+		else if(password.charAt(i) == password.charAt(i).toUpperCase()){
+			 
+			big++;
+	
+		}
+		else if(password.charAt(i) == password.charAt(i).toLowerCase()){
+			 
+			little++;
+			
+		}
+		
+	
+		
+	}
+	
+	if(!(big!=0 && little!=0 && num!=0 && noktalamaisareti!=0 && password.length>7)){
+		document.getElementById("passwordTD").innerHTML = "(En az 1 büyük harf, en az 1 küçük harf, en az bir rakam ve en az 1 noktalama işareti içeren ve en az 8 uzunluğunda olmalı.)";
+		return false;
+	}
+		
+	
+	
+ 
+	
+	 
+}
+
+</script>
+
+</body>
+</html>
